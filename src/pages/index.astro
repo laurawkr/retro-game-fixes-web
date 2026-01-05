@@ -1,16 +1,55 @@
 ---
+import BaseLayout from "../layouts/BaseLayout.astro";
 
+const title = "Retro Game Fixes";
+const description =
+  "Compatibility guides for classic PC games on modern systems.";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout {title} {description}>
+  <h1>Retro Game Fixes</h1>
+  <p>
+    Practical guides for running classic PC games on modern systems
+    (Windows 10 &amp; 11).
+  </p>
+
+  <div class="card">
+    <h2>Currently working on</h2>
+    <ul>
+      <li>
+        <a href="/guides/harry-potter-sorcerers-stone">
+          Harry Potter and the Sorcerer’s Stone (PC)
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Planned</h2>
+    <ul>
+      <li>Harry Potter PC series</li>
+      <li>The Sims</li>
+      <li>Sim Theme Park</li>
+      <li>Sim Golf</li>
+      <li>Sim Safari</li>
+      <li>SimIsle</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>About</h2>
+    <p>
+      This site documents compatibility fixes, wrappers, and configuration
+      tips for classic PC games. No game files are distributed.
+      For more details, see the <a href="/about">About page</a>.
+    </p>
+  </div>
+
+  <div class="card site-footer">
+    <p>
+      <a href="/about">About</a> ·
+      <a href="/privacy-policy">Privacy Policy</a>
+    </p>
+    <p>&copy; {new Date().getFullYear()} caferacergames.com</p>
+  </div>
+</BaseLayout>

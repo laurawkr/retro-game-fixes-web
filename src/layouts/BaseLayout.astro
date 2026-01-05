@@ -1,0 +1,62 @@
+---
+const { title, description } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{title}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+
+    <!-- Google AdSense (same as your old page) -->
+    <script async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6319637311271773"
+      crossorigin="anonymous">
+    </script>
+
+    <style>
+      body {
+        background: #0b0b0b;
+        color: #e0e0e0;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+      h1 {
+        font-family: monospace;
+        color: #8aff8a;
+      }
+      a {
+        color: #8affff;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      .card {
+        border: 1px solid #333;
+        padding: 1rem;
+        margin: 1.5rem 0;
+        background: #111;
+      }
+      .site-footer {
+        margin-top: 2rem;
+        font-size: 0.8rem;
+        color: #aaa;
+      }
+    </style>
+  </head>
+  <body>
+    <slot />
+
+    <!-- Cloudflare Insights beacon (same as your old page) -->
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"
+      integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
+      data-cf-beacon='{"version":"2024.11.0","token":"801357a12d58445c9921f3793c929ed9","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}'
+      crossorigin="anonymous">
+    </script>
+  </body>
+</html>

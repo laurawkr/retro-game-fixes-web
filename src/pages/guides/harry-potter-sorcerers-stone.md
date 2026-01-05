@@ -1,0 +1,149 @@
+---
+layout: ../../layouts/BaseLayout.astro
+title: How to Run Harry Potter and the Sorcerer’s Stone (PC CD-ROM, US) on Modern Windows
+description: Step-by-step guide for running Harry Potter and the Sorcerer’s Stone (PC CD-ROM, US) on Windows XP, 7, 10, and 11 using dgVoodoo2 and compatibility fixes.
+---
+
+# How to Run *Harry Potter and the Sorcerer’s Stone* (PC CD-ROM, US) on Modern Windows
+
+This guide helps you get *Harry Potter and the Sorcerer’s Stone* (original PC CD-ROM, US version) running on **Windows XP, Windows 7, Windows 10, and Windows 11**.
+
+> ❗ This guide assumes you **own the original disc**. For damaged discs, you can use official archival tools like Internet Archive to read your media. We don’t link to pirated downloads.
+
+---
+
+## Supported Systems
+
+- Windows XP – needs testing and optional fixes.
+- Windows 7 – installs and runs, but crashes without dgVoodoo2.
+- Windows 10 – crashes or fails to launch without fixes.
+- Windows 11 – crashes or fails to launch without fixes.
+
+If you’re on **Windows 10 or 11**, don’t even bother trying to run the game without dgVoodoo2—it will be unstable and usually crash quickly.
+
+---
+
+## Why the Game Crashes on Modern Windows
+
+The PC version of HP1 was built for early DirectX and uses legacy **SafeDisc** copy protection. On modern systems:
+
+- Legacy DirectX calls don’t behave correctly with new GPUs.
+- SafeDisc DRM is blocked by Windows security.
+- Optical drives run at different speeds than when the game was released.
+
+Result: installs may work, but the game will often **crash on launch, freeze, or close after a few seconds**.
+
+Our fix is to use **dgVoodoo2**, a graphics wrapper that translates old DirectX calls into something modern Windows understands.
+
+---
+
+## Step 1 – Install the Game (All Systems)
+
+1. Insert your original **Harry Potter and the Sorcerer’s Stone** PC CD-ROM.
+2. Run the installer and let it complete.
+3. If your disc is damaged, you can:
+   - Create an ISO from your own disc, or
+   - Use Internet Archive as a reading solution for your legally owned copy.
+4. Once installed, **do not launch the game yet** on Windows 10/11—go straight to dgVoodoo2.
+
+---
+
+## Step 2 – Download and Install dgVoodoo2
+
+1. Download dgVoodoo2 from the official site.
+2. Extract the ZIP to a temporary folder.
+3. From the `MS` subfolder, copy these files into your HP1 game folder (where the game EXE lives):
+   - `D3D8.dll`
+   - `D3DImm.dll`
+   - `DDraw.dll` (if present)
+4. Copy `DgVoodooCpl.exe` into the same folder for convenience.
+
+Now dgVoodoo2 will intercept old DirectX calls and handle them in a modern way.
+
+---
+
+## Step 3 – Configure dgVoodoo2
+
+1. Run `DgVoodooCpl.exe`.
+2. On the **General** tab:
+   - Set the output API to a modern option (e.g., DirectX 11/12).
+   - Leave the rest at defaults for now.
+3. On the **DirectX** tab:
+   - Set the resolution to your monitor resolution or a 4:3 resolution you like.
+   - Enable aspect ratio correction if you want to avoid stretching.
+   - Apply settings.
+
+Click **OK** to save and close dgVoodoo2.
+
+---
+
+## Step 4 – Windows 7 Notes
+
+On **Windows 7**:
+
+- The game usually installs and launches without extra tricks.
+- It can still crash or behave oddly without dgVoodoo2.
+
+With dgVoodoo2 configured:
+
+- Crashes are greatly reduced.
+- You can use higher resolutions and get smoother performance.
+
+---
+
+## Step 5 – Windows 10 & Windows 11 Notes
+
+On **Windows 10/11**, you will typically see:
+
+- Crash on launch.
+- Window opens and closes immediately.
+- SafeDisc authorization messages.
+
+Using dgVoodoo2:
+
+1. Right-click the game EXE and choose **Run as administrator**.
+2. If you see any SafeDisc prompts, allow them to proceed.
+3. The game should now launch and stay stable, with dgVoodoo2 handling the old graphics calls.
+
+Because modern Windows does not support SafeDisc at the system level, running directly from the physical disc can be unreliable. Using dgVoodoo2 and an ISO of your own disc is often more stable.
+
+---
+
+## Step 6 – Resolution and Fullscreen
+
+If the game looks wrong:
+
+- **Black bars:** try a resolution in dgVoodoo2 that matches your monitor aspect ratio.
+- **Stretched image:** enable aspect ratio correction in the DirectX tab.
+- **Tiny window:** set a higher resolution and enable fullscreen.
+
+The goal is to target either the original 4:3 look or a comfortable widescreen mode.
+
+---
+
+## Step 7 – Audio
+
+After dgVoodoo2 is installed:
+
+- Most users report **no audio issues**.
+- If you hear crackling or missing audio:
+  - Check your Windows sound output device.
+  - Disable “exclusive mode” enhancements.
+  - Lower output quality (e.g., from 192kHz to 48kHz) temporarily and test again.
+
+---
+
+## FAQ
+
+**Q: Can I do this without dgVoodoo2?**  
+A: On modern Windows, it’s usually not worth trying. The game is crash-prone without a wrapper.
+
+**Q: Do I need a virtual machine?**  
+A: This guide is focused on **native Windows**. VMs (like XP in VirtualBox) are possible but add complexity.
+
+**Q: Is this legal?**  
+A: You should own the original game. This guide only uses official tools and archival solutions, not pirated copies.
+
+---
+
+If this guide helped you get HP1 running again, consider bookmarking this site—more retro PC game fixes are on the way.
