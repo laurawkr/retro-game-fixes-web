@@ -34,13 +34,15 @@ const description =
       </section>
 
       <section class="lr-panel">
-        <h3 class="lr-panel-title">Currently Researching</h3>
+        <h3 class="lr-panel-title">Guides</h3>
         <ul class="lr-nav">
           <li>
-            <a href="/guides/harry-potter-sorcerers-stone">
-              Harry Potter and the Sorcerer’s Stone (PC)
-            </a>
+            <a href="/guides">All Guides</a>
           </li>
+          <ul class="lr-nav lr-subnav">
+            <li><a href="/guides/harry-potter-sorcerers-stone">Harry Potter (PC)</a></li>
+            <!-- Add more guides here -->
+          </ul>
         </ul>
       </section>
     </aside>
@@ -110,25 +112,6 @@ const description =
         </div>
       </footer>
     </main>
-
-    <!-- RIGHT SIDEBAR -->
-    <aside class="lr-sidebar lr-sidebar-right">
-      <section class="lr-panel">
-        <h3 class="lr-panel-title">Guides</h3>
-        <ul class="lr-nav">
-          <li><a href="/guides">All Guides</a></li>
-          <li><a href="/guides/harry-potter-sorcerers-stone">Harry Potter (PC)</a></li>
-        </ul>
-      </section>
-
-      <section class="lr-panel">
-        <h3 class="lr-panel-title">Roadmap</h3>
-        <ul class="lr-nav">
-          <li>Sim Theme Park</li>
-          <li>Sim Golf</li>
-          <li>The Sims</li>
-        </ul>
-      </section>
-    </aside>
+    
   </div>
 </BaseLayout>
