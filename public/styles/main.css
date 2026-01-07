@@ -1,164 +1,215 @@
-/* ---------- GLOBAL ---------- */
+/* =============== */
+/* GLOBAL SETTINGS */
+/* =============== */
 
 :root {
   --bg-dark: #050505;
-  --panel: #111;
+  --panel-dark: #111;
   --border: #3a3a3a;
   --accent-yellow: #ffe066;
   --accent-cyan: #7ffcff;
-  --locked: #666;
+  --text-light: #e6e6e6;
+  --text-muted: #aaa;
+  --paper-bg: #faf5ed;
+  --paper-border: #dad0c3;
+  --sidebar-bg: #1e1e1e;
 }
 
 body {
   margin: 0;
-  background: radial-gradient(circle at top, #111, #020202);
   font-family: "Trebuchet MS", Verdana, sans-serif;
-  color: #e6e6e6;
+  background: var(--bg-dark);
+  color: var(--text-light);
 }
 
-/* ---------- MAP FRAME ---------- */
+/* =============== */
+/* HEADER BANNER    */
+/* =============== */
 
-.map-frame {
-  max-width: 1100px;
-  margin: 2.5rem auto;
-  padding: 2rem;
-  background:
-    radial-gradient(circle at top, #1b1b1b, #070707);
-  border: 4px solid var(--border);
-  border-radius: 18px;
-
-  box-shadow:
-    inset 0 0 0 2px #000,
-    0 30px 90px rgba(0, 0, 0, 0.9);
-}
-
-/* ---------- TITLE ---------- */
-
-.map-title {
+.lr-header {
+  background: #1c1816;
+  padding: 1.8rem 0;
   text-align: center;
-  font-size: 3.2rem;
+  border-bottom: 2px solid var(--border);
+}
+
+.lr-header-bg {
+  /* optional: replace with an actual image if you add one */
+  background: linear-gradient(135deg, #2d2a28, #1c1816);
+  height: 220px;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0.37;
+  z-index: -1;
+}
+
+.lr-site-title {
+  font-size: 2.8rem;
   color: var(--accent-yellow);
   margin: 0;
-
-  text-shadow:
-    0 2px 0 #000,
-    0 6px 20px rgba(0,0,0,0.9);
 }
 
-.map-subtitle {
-  text-align: center;
-  color: #aaa;
-  margin-bottom: 2rem;
+.lr-site-tagline {
+  color: var(--text-muted);
+  font-size: 1rem;
+  margin-top: 0.4rem;
 }
 
-/* ---------- MAP ---------- */
+/* =============== */
+/* THREE COLUMN LAYOUT */
+/* =============== */
 
-.map-container {
-  position: relative;
-  height: 520px;
-  border-radius: 14px;
-
-  background:
-    linear-gradient(180deg, #2a5d3b, #1e3d2a);
-  border: 3px solid #2f2f2f;
-
-  box-shadow:
-    inset 0 0 0 2px rgba(0,0,0,0.6);
+.lr-middle {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 1.6rem;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  max-width: 1180px;
 }
 
-/* ---------- ISLANDS ---------- */
+/* =============== */
+/* SIDEBARS        */
+/* =============== */
 
-.island {
-  position: absolute;
-  width: 160px;
-  height: 120px;
-  background:
-    radial-gradient(circle at top, #4f8f5f, #2f5f3f);
-  border: 3px solid #244b33;
-  border-radius: 50% 50% 45% 45%;
+.lr-sidebar {
+  background: var(--sidebar-bg);
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+.lr-panel {
+  margin-bottom: 1.6rem;
+}
 
-  color: #e6ffe6;
+.lr-panel-title {
+  font-size: 1.05rem;
+  margin-bottom: 0.6rem;
+  color: var(--accent-cyan);
+  font-weight: bold;
+}
+
+.lr-nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.lr-nav li {
+  margin-bottom: 0.5rem;
+}
+
+.lr-nav a {
+  color: var(--text-light);
   text-decoration: none;
-
-  box-shadow:
-    inset 0 3px 0 rgba(255,255,255,0.15),
-    0 10px 25px rgba(0,0,0,0.8);
-
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  display: block;
 }
 
-.island:hover {
-  transform: translateY(-6px);
-  box-shadow:
-    inset 0 3px 0 rgba(255,255,255,0.2),
-    0 18px 35px rgba(0,0,0,0.9);
+.lr-nav a:hover {
+  color: var(--accent-cyan);
 }
 
-.island-label {
-  background: rgba(0,0,0,0.55);
-  padding: 0.4rem 0.6rem;
+/* =============== */
+/* MAIN CONTENT “PAPER” */
+/* =============== */
+
+.lr-main {
+  width: 100%;
+}
+
+.lr-paper {
+  background: var(--paper-bg);
+  color: #2f2f2f;
+  padding: 1.8rem;
   border-radius: 6px;
-  font-size: 0.9rem;
+  border: 1px solid var(--paper-border);
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.15);
 }
 
-/* ---------- ISLAND POSITIONS ---------- */
-
-.island-hp {
-  top: 120px;
-  left: 160px;
+.lr-post-header {
+  margin-bottom: 1rem;
 }
 
-.island-sims {
-  top: 80px;
-  left: 460px;
+.lr-post-title {
+  font-size: 2.2rem;
+  margin: 0;
+  color: var(--accent-yellow);
 }
 
-.island-themepark {
-  top: 260px;
-  left: 380px;
+.lr-post-subtitle {
+  margin-top: 0.4rem;
+  color: var(--text-muted);
+  font-size: 1rem;
 }
 
-.island-golf {
-  top: 200px;
-  left: 700px;
+.lr-tags {
+  margin-top: 0.8rem;
+  font-size: 0.88rem;
 }
 
-/* ---------- LOCKED ---------- */
-
-.locked {
-  background:
-    radial-gradient(circle at top, #444, #222);
-  border-color: #333;
-  color: var(--locked);
-  cursor: not-allowed;
+.lr-tag-label {
+  font-weight: bold;
+  margin-right: 0.4rem;
+  color: var(--text-muted);
 }
 
-.locked:hover {
-  transform: none;
-  box-shadow:
-    inset 0 3px 0 rgba(255,255,255,0.05),
-    0 8px 18px rgba(0,0,0,0.8);
-}
-
-/* ---------- FOOTER ---------- */
-
-.map-footer {
-  margin-top: 1.5rem;
-  text-align: center;
-  font-size: 0.85rem;
-  color: #888;
-}
-
-.map-footer a {
+.lr-tag {
+  margin-right: 0.6rem;
   color: var(--accent-cyan);
   text-decoration: none;
 }
 
-.map-footer a:hover {
+.lr-tag:hover {
   text-decoration: underline;
+}
+
+/* CONTENT TEXT */
+.lr-post-content h1,
+.lr-post-content h2,
+.lr-post-content h3 {
+  color: var(--accent-cyan);
+}
+
+.lr-post-content p {
+  margin-bottom: 1rem;
+  line-height: 1.65;
+  color: #2a2a2a;
+}
+
+/* IMAGES */
+.lr-post-content img {
+  max-width: 100%;
+  border-radius: 8px;
+  margin: 1.2rem 0;
+  border: 1px solid var(--paper-border);
+}
+
+/* BUTTONS */
+.lr-btn {
+  background: var(--accent-cyan);
+  color: #111;
+  padding: 0.55rem 1.1rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.lr-btn:hover {
+  background: #5eeaff;
+}
+
+/* =============== */
+/* FOOTER          */
+/* =============== */
+
+.lr-footer {
+  margin-top: 2rem;
+  border-top: 1px solid var(--paper-border);
+  padding-top: 1rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  text-align: center;
 }

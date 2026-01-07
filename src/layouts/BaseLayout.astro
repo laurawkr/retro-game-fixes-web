@@ -1,5 +1,5 @@
 ---
-const { title, description } = Astro.props;
+const { title = "Retro Game Fixes", description = "" } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -10,10 +10,10 @@ const { title, description } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
 
-    <!-- Global site styles -->
+    <!-- Site CSS -->
     <link rel="stylesheet" href="/styles/main.css" />
 
-    <!-- Google AdSense (unchanged) -->
+    <!-- Google AdSense -->
     <script
       async
       src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6319637311271773"
@@ -22,11 +22,9 @@ const { title, description } = Astro.props;
   </head>
 
   <body>
-    <main>
-      <slot />
-    </main>
+    <slot />
 
-    <!-- Cloudflare Insights beacon (unchanged) -->
+    <!-- Cloudflare Insights beacon -->
     <script
       defer
       src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"
@@ -36,4 +34,3 @@ const { title, description } = Astro.props;
     ></script>
   </body>
 </html>
-

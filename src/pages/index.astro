@@ -3,46 +3,132 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 const title = "Retro Game Fixes";
 const description =
-  "Explore classic PC games like a theme park. Each game is its own island.";
+  "Modern fixes for classic PC games — wrappers, patches, configs. No game files distributed.";
 ---
 
 <BaseLayout {title} {description}>
-  <div class="map-frame">
-    <h1 class="map-title">Retro Game Fixes</h1>
-    <p class="map-subtitle">
-      Choose an island to explore
-    </p>
+  <!-- Top header banner (LevelRankings-ish) -->
+  <header class="lr-header">
+    <!-- Optional: drop an image at /public/images/header.jpg -->
+    <div class="lr-header-bg" aria-hidden="true"></div>
 
-    <div class="map-container">
-      <!-- Harry Potter Island -->
-      <a
-        href="/guides/harry-potter-sorcerers-stone"
-        class="island island-hp"
-      >
-        <span class="island-label">
-          Harry Potter<br />
-          Sorcerer’s Stone
-        </span>
-      </a>
-
-      <!-- Planned Islands -->
-      <div class="island island-sims locked">
-        <span class="island-label">The Sims</span>
-      </div>
-
-      <div class="island island-themepark locked">
-        <span class="island-label">Sim Theme Park</span>
-      </div>
-
-      <div class="island island-golf locked">
-        <span class="island-label">Sim Golf</span>
-      </div>
+    <div class="lr-header-inner">
+      <h1 class="lr-site-title">Retro Game Fixes</h1>
+      <p class="lr-site-tagline">
+        Modern fixes for classic PC games — no ISOs, no nonsense.
+      </p>
     </div>
+  </header>
 
-    <footer class="map-footer">
-      <a href="/about">About</a> ·
-      <a href="/privacy-policy">Privacy Policy</a>
-      <p>© {new Date().getFullYear()} caferacergames.com</p>
-    </footer>
+  <!-- Middle 3-column layout -->
+  <div class="lr-middle">
+    <!-- LEFT SIDEBAR -->
+    <aside class="lr-sidebar lr-sidebar-left">
+      <section class="lr-panel">
+        <h3 class="lr-panel-title">Pages</h3>
+        <ul class="lr-nav">
+          <li><a href="/" aria-current="page">Home</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/privacy-policy">Privacy Policy</a></li>
+        </ul>
+      </section>
+
+      <section class="lr-panel">
+        <h3 class="lr-panel-title">Currently Researching</h3>
+        <ul class="lr-nav">
+          <li>
+            <a href="/guides/harry-potter-sorcerers-stone">
+              Harry Potter and the Sorcerer’s Stone (PC)
+            </a>
+          </li>
+        </ul>
+      </section>
+    </aside>
+
+    <!-- MAIN CONTENT (paper panel) -->
+    <main class="lr-main">
+      <article class="lr-paper">
+        <header class="lr-post-header">
+          <h2 class="lr-post-title">Start Here</h2>
+          <p class="lr-post-subtitle">
+            Step-by-step compatibility fixes for classic PC games on modern Windows.
+            Wrappers, patches, configs — nothing distributed.
+          </p>
+
+          <div class="lr-tags">
+            <span class="lr-tag-label">Tags:</span>
+            <a class="lr-tag" href="/guides">PC</a>
+            <a class="lr-tag" href="/guides">Windows 10/11</a>
+            <a class="lr-tag" href="/guides">Fixes</a>
+          </div>
+        </header>
+
+        <div class="lr-post-content">
+          <figure class="lr-hero-figure">
+            <!-- Optional: drop an image at /public/images/home-hero.jpg -->
+            <div class="lr-hero-placeholder">
+              <span>Drop a hero image at <code>/public/images/home-hero.jpg</code></span>
+            </div>
+          </figure>
+
+          <h3>Currently working on</h3>
+          <ul>
+            <li>
+              <a href="/guides/harry-potter-sorcerers-stone">
+                Harry Potter and the Sorcerer’s Stone (PC)
+              </a>
+            </li>
+          </ul>
+
+          <h3>Planned</h3>
+          <ul>
+            <li>Harry Potter PC series</li>
+            <li>The Sims</li>
+            <li>Sim Theme Park</li>
+            <li>Sim Golf</li>
+            <li>Sim Safari</li>
+            <li>SimIsle</li>
+          </ul>
+
+          <h3>About this site</h3>
+          <p>
+            This is a focused archive of “how to get it running” notes.
+            I’m optimizing for: reproducible steps, minimal fluff, and fixes that
+            still work on current Windows builds.
+          </p>
+
+          <p class="lr-cta">
+            <a class="lr-btn" href="/about">Read more →</a>
+          </p>
+        </div>
+      </article>
+
+      <footer class="lr-footer">
+        <a href="/about">About</a> · <a href="/privacy-policy">Privacy Policy</a>
+        <div class="lr-copyright">
+          &copy; {new Date().getFullYear()} caferacergames.com
+        </div>
+      </footer>
+    </main>
+
+    <!-- RIGHT SIDEBAR -->
+    <aside class="lr-sidebar lr-sidebar-right">
+      <section class="lr-panel">
+        <h3 class="lr-panel-title">Guides</h3>
+        <ul class="lr-nav">
+          <li><a href="/guides">All Guides</a></li>
+          <li><a href="/guides/harry-potter-sorcerers-stone">Harry Potter (PC)</a></li>
+        </ul>
+      </section>
+
+      <section class="lr-panel">
+        <h3 class="lr-panel-title">Roadmap</h3>
+        <ul class="lr-nav">
+          <li>Sim Theme Park</li>
+          <li>Sim Golf</li>
+          <li>The Sims</li>
+        </ul>
+      </section>
+    </aside>
   </div>
 </BaseLayout>
