@@ -3,59 +3,46 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 const title = "Retro Game Fixes";
 const description =
-  "Modern fixes for classic PC games — no ISOs, no nonsense.";
+  "Explore classic PC games like a theme park. Each game is its own island.";
 ---
 
 <BaseLayout {title} {description}>
-  <div class="game-frame">
-    <header class="hero">
-      <h1 class="hero-title">Retro Game Fixes</h1>
-      <p class="hero-subtitle">
-        Modern fixes for classic PC games — no ISOs, no nonsense.
-      </p>
-    </header>
+  <div class="map-frame">
+    <h1 class="map-title">Retro Game Fixes</h1>
+    <p class="map-subtitle">
+      Choose an island to explore
+    </p>
 
-    <section class="panel-grid">
-      <div class="panel">
-        <h2>Currently Researching</h2>
-        <ul class="panel-list">
-          <li>
-            <a href="/guides/harry-potter-sorcerers-stone">
-              Harry Potter and the Sorcerer’s Stone (PC)
-            </a>
-          </li>
-        </ul>
+    <div class="map-container">
+      <!-- Harry Potter Island -->
+      <a
+        href="/guides/harry-potter-sorcerers-stone"
+        class="island island-hp"
+      >
+        <span class="island-label">
+          Harry Potter<br />
+          Sorcerer’s Stone
+        </span>
+      </a>
+
+      <!-- Planned Islands -->
+      <div class="island island-sims locked">
+        <span class="island-label">The Sims</span>
       </div>
 
-      <div class="panel">
-        <h2>Planned Guides</h2>
-        <ul class="panel-list">
-          <li>The Sims</li>
-          <li>Sim Theme Park</li>
-          <li>Sim Golf</li>
-          <li>Sim Safari</li>
-          <li>SimIsle</li>
-        </ul>
+      <div class="island island-themepark locked">
+        <span class="island-label">Sim Theme Park</span>
       </div>
 
-      <div class="panel">
-        <h2>What This Site Is</h2>
-        <p>
-          Step-by-step compatibility fixes for classic PC games on modern
-          Windows. Wrappers, patches, configs — nothing distributed.
-        </p>
-        <p class="panel-link">
-          <a href="/about">Read more →</a>
-        </p>
+      <div class="island island-golf locked">
+        <span class="island-label">Sim Golf</span>
       </div>
-    </section>
+    </div>
 
-    <footer class="retro-footer">
-      <p>
-        <a href="/about">About</a> ·
-        <a href="/privacy-policy">Privacy Policy</a>
-      </p>
-      <p>&copy; {new Date().getFullYear()} caferacergames.com</p>
+    <footer class="map-footer">
+      <a href="/about">About</a> ·
+      <a href="/privacy-policy">Privacy Policy</a>
+      <p>© {new Date().getFullYear()} caferacergames.com</p>
     </footer>
   </div>
 </BaseLayout>

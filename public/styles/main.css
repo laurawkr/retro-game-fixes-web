@@ -1,155 +1,164 @@
-/* ---------- BASE ---------- */
+/* ---------- GLOBAL ---------- */
 
 :root {
-  --bg: #050505;
-  --frame: #0c0c0c;
-  --panel-top: #1e1e1e;
-  --panel-bottom: #101010;
+  --bg-dark: #050505;
+  --panel: #111;
   --border: #3a3a3a;
-  --text: #e6e6e6;
-  --muted: #aaa;
   --accent-yellow: #ffe066;
-  --accent-cyan: #8affff;
-}
-
-* {
-  box-sizing: border-box;
+  --accent-cyan: #7ffcff;
+  --locked: #666;
 }
 
 body {
   margin: 0;
   background: radial-gradient(circle at top, #111, #020202);
-  color: var(--text);
   font-family: "Trebuchet MS", Verdana, sans-serif;
+  color: #e6e6e6;
 }
 
-/* ---------- GAME FRAME ---------- */
+/* ---------- MAP FRAME ---------- */
 
-.game-frame {
-  max-width: 960px;
-  margin: 3rem auto;
-  padding: 2.2rem;
-
+.map-frame {
+  max-width: 1100px;
+  margin: 2.5rem auto;
+  padding: 2rem;
   background:
-    radial-gradient(circle at top, #1a1a1a, #060606);
-
+    radial-gradient(circle at top, #1b1b1b, #070707);
   border: 4px solid var(--border);
-  border-radius: 16px;
+  border-radius: 18px;
 
   box-shadow:
     inset 0 0 0 2px #000,
-    inset 0 0 30px rgba(255, 255, 255, 0.04),
     0 30px 90px rgba(0, 0, 0, 0.9);
 }
 
-/* ---------- HERO ---------- */
+/* ---------- TITLE ---------- */
 
-.hero {
+.map-title {
   text-align: center;
-  margin-bottom: 3rem;
-}
-
-.hero-title {
-  font-size: 3.4rem;
+  font-size: 3.2rem;
   color: var(--accent-yellow);
-  letter-spacing: 1px;
   margin: 0;
 
   text-shadow:
     0 2px 0 #000,
-    0 6px 25px rgba(0, 0, 0, 0.9);
+    0 6px 20px rgba(0,0,0,0.9);
 }
 
-.hero-subtitle {
-  margin-top: 0.6rem;
-  color: var(--muted);
-  font-size: 1rem;
+.map-subtitle {
+  text-align: center;
+  color: #aaa;
+  margin-bottom: 2rem;
 }
 
-/* ---------- PANELS ---------- */
+/* ---------- MAP ---------- */
 
-.panel-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.6rem;
-}
-
-.panel {
-  background:
-    linear-gradient(180deg, var(--panel-top), var(--panel-bottom));
-
-  border: 3px solid var(--border);
+.map-container {
+  position: relative;
+  height: 520px;
   border-radius: 14px;
-  padding: 1.5rem;
+
+  background:
+    linear-gradient(180deg, #2a5d3b, #1e3d2a);
+  border: 3px solid #2f2f2f;
 
   box-shadow:
-    inset 0 2px 0 rgba(255, 255, 255, 0.08),
-    inset 0 -2px 0 rgba(0, 0, 0, 0.6),
-    0 12px 30px rgba(0, 0, 0, 0.8);
+    inset 0 0 0 2px rgba(0,0,0,0.6);
 }
 
-.panel h2 {
-  display: inline-block;
-  margin: 0 0 1rem;
-  padding: 0.45rem 0.65rem;
+/* ---------- ISLANDS ---------- */
 
-  font-size: 0.95rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+.island {
+  position: absolute;
+  width: 160px;
+  height: 120px;
+  background:
+    radial-gradient(circle at top, #4f8f5f, #2f5f3f);
+  border: 3px solid #244b33;
+  border-radius: 50% 50% 45% 45%;
 
-  color: var(--accent-cyan);
-  background: #0a0a0a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 
-  border: 1px solid #2a2a2a;
+  color: #e6ffe6;
+  text-decoration: none;
+
+  box-shadow:
+    inset 0 3px 0 rgba(255,255,255,0.15),
+    0 10px 25px rgba(0,0,0,0.8);
+
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.island:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    inset 0 3px 0 rgba(255,255,255,0.2),
+    0 18px 35px rgba(0,0,0,0.9);
+}
+
+.island-label {
+  background: rgba(0,0,0,0.55);
+  padding: 0.4rem 0.6rem;
   border-radius: 6px;
+  font-size: 0.9rem;
 }
 
-/* ---------- LISTS ---------- */
+/* ---------- ISLAND POSITIONS ---------- */
 
-.panel-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.island-hp {
+  top: 120px;
+  left: 160px;
 }
 
-.panel-list li {
-  padding: 0.35rem 0;
+.island-sims {
+  top: 80px;
+  left: 460px;
 }
 
-/* ---------- LINKS ---------- */
-
-a {
-  color: var(--accent-cyan);
-  text-decoration: none;
+.island-themepark {
+  top: 260px;
+  left: 380px;
 }
 
-a:hover {
-  text-decoration: none;
+.island-golf {
+  top: 200px;
+  left: 700px;
 }
 
-.panel-list a {
-  display: inline-block;
-  padding: 0.25rem 0.45rem;
-  border-radius: 4px;
+/* ---------- LOCKED ---------- */
+
+.locked {
+  background:
+    radial-gradient(circle at top, #444, #222);
+  border-color: #333;
+  color: var(--locked);
+  cursor: not-allowed;
 }
 
-.panel-list a:hover {
-  background: rgba(138, 255, 255, 0.18);
+.locked:hover {
+  transform: none;
+  box-shadow:
+    inset 0 3px 0 rgba(255,255,255,0.05),
+    0 8px 18px rgba(0,0,0,0.8);
 }
 
 /* ---------- FOOTER ---------- */
 
-.retro-footer {
-  margin-top: 3.5rem;
+.map-footer {
+  margin-top: 1.5rem;
   text-align: center;
   font-size: 0.85rem;
-  color: #777;
+  color: #888;
 }
 
-.retro-footer a {
-  color: #aaa;
-}
-
-.retro-footer a:hover {
+.map-footer a {
   color: var(--accent-cyan);
+  text-decoration: none;
+}
+
+.map-footer a:hover {
+  text-decoration: underline;
 }
