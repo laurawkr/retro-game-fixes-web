@@ -213,3 +213,22 @@ body {
   font-size: 0.85rem;
   text-align: center;
 }
+
+/* Nested Guide List */
+.lr-subnav {
+  padding-left: 1rem;
+  margin-top: 0.4rem;
+}
+
+.lr-subnav li {
+  margin: 0.45rem 0;
+}
+
+.lr-subnav a {
+  font-size: 0.95rem;
+  color: var(--accent-cyan);
+}
+
+.lr-subnav a:hover {
+  text-decoration: underline;
+}
