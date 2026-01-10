@@ -22,6 +22,14 @@ body {
   color: var(--text-light);
 }
 
+/* ✅ NEW: make non-paper pages (like privacy) not hug the edges */
+main {
+  display: block;
+  max-width: 980px;
+  margin: 2rem auto;
+  padding: 0 1rem 3rem;
+}
+
 /* =============== */
 /* HEADER BANNER    */
 /* =============== */
@@ -201,6 +209,49 @@ body {
   background: #5eeaff;
 }
 
+/* ✅ NEW: card styling (your privacy page uses .card) */
+.card {
+  background: var(--panel-dark);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem 1.25rem;
+  margin: 1rem 0;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
+}
+
+.card h2 {
+  margin: 0 0 0.6rem;
+  color: var(--accent-cyan);
+  font-size: 1.2rem;
+}
+
+.card p {
+  margin: 0.7rem 0;
+  line-height: 1.65;
+  color: var(--text-light);
+}
+
+.card ul {
+  margin: 0.6rem 0 0;
+  padding-left: 1.2rem;
+}
+
+.card li {
+  margin: 0.35rem 0;
+  color: var(--text-light);
+}
+
+.card a {
+  color: var(--accent-cyan);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+}
+
+.card a:hover {
+  color: #5eeaff;
+}
+
 /* =============== */
 /* FOOTER          */
 /* =============== */
@@ -241,6 +292,17 @@ body {
   max-width: 920px;
   margin: 2.2rem auto;
   padding: 0 1rem;
+}
+
+/* ✅ NEW: make typography consistent on privacy page */
+.policy-wrap h1,
+.policy-wrap h2 {
+  letter-spacing: 0.2px;
+}
+
+.policy-wrap p,
+.policy-wrap li {
+  line-height: 1.65;
 }
 
 .policy-head {
@@ -331,3 +393,4 @@ body {
     width: fit-content;
   }
 }
+
