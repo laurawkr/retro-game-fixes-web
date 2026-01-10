@@ -232,3 +232,102 @@ body {
 .lr-subnav a:hover {
   text-decoration: underline;
 }
+
+/* ===================== */
+/* PRIVACY PAGE POLISH   */
+/* ===================== */
+
+.policy-wrap {
+  max-width: 920px;
+  margin: 2.2rem auto;
+  padding: 0 1rem;
+}
+
+.policy-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.1rem;
+}
+
+.policy-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(127, 252, 255, 0.35);
+}
+
+.policy-meta {
+  font-size: 0.85rem;
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid rgba(127, 252, 255, 0.35);
+  background: rgba(127, 252, 255, 0.08);
+  color: var(--text-light);
+  white-space: nowrap;
+}
+
+.policy-title {
+  margin: 0 0 0.6rem;
+  font-size: 2.2rem;
+  letter-spacing: 0.2px;
+}
+
+.policy-intro {
+  margin: 0 0 1.25rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+.policy-cards {
+  display: grid;
+  gap: 1rem;
+}
+
+.policy-card {
+  background: var(--paper-bg);
+  color: #2a2a2a;
+  border: 1px solid var(--paper-border);
+  border-radius: 12px;
+  padding: 1.25rem 1.25rem;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
+}
+
+.policy-card h2 {
+  margin: 0 0 0.6rem;
+  color: #1c1816;
+  font-size: 1.2rem;
+}
+
+.policy-card p {
+  margin: 0.7rem 0;
+  line-height: 1.65;
+}
+
+.policy-card ul {
+  margin: 0.6rem 0 0;
+  padding-left: 1.2rem;
+}
+
+.policy-card a {
+  color: #0b6b74;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+}
+
+.policy-card a:hover {
+  color: #094f56;
+}
+
+@media (max-width: 560px) {
+  .policy-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .policy-meta {
+    width: fit-content;
+  }
+}
