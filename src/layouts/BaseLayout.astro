@@ -22,7 +22,9 @@ const { title = "Retro Game Fixes", description = "" } = Astro.props;
   </head>
 
   <body>
-    <slot />
+    <main class="site-main">
+      <slot />
+    </main>
 
     <!-- Cloudflare Insights beacon -->
     <script
@@ -33,4 +35,5 @@ const { title = "Retro Game Fixes", description = "" } = Astro.props;
       crossorigin="anonymous"
     ></script>
   </body>
+
 </html>
