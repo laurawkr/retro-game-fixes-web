@@ -291,34 +291,31 @@ main {
 .policy-wrap {
   max-width: 920px;
   margin: 2.2rem auto;
-  padding: 0 1rem;
+  padding: 0 1.25rem 3rem;
 }
 
-/* ✅ NEW: make typography consistent on privacy page */
-.policy-wrap h1,
-.policy-wrap h2 {
-  letter-spacing: 0.2px;
-}
-
-.policy-wrap p,
-.policy-wrap li {
-  line-height: 1.65;
-}
-
+/* top row */
 .policy-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  margin-bottom: 1.1rem;
+
+  background: var(--panel-dark);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.75rem 0.9rem;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
+
+  margin-bottom: 1.25rem;
 }
 
 .policy-back {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
   border: 1px solid rgba(127, 252, 255, 0.35);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
 }
 
 .policy-meta {
@@ -331,10 +328,12 @@ main {
   white-space: nowrap;
 }
 
+/* title + intro */
 .policy-title {
   margin: 0 0 0.6rem;
   font-size: 2.2rem;
   letter-spacing: 0.2px;
+  color: var(--accent-yellow);
 }
 
 .policy-intro {
@@ -343,45 +342,72 @@ main {
   line-height: 1.65;
 }
 
-.policy-cards {
-  display: grid;
-  gap: 1rem;
+/* ✅ If your page is NOT using .card/.policy-card wrappers,
+   this styles each section automatically by targeting headings + content after them. */
+
+.policy-wrap h2 {
+  margin: 1.1rem 0 0.6rem;
+  color: var(--accent-cyan);
+  font-size: 1.25rem;
 }
 
-.policy-card {
-  background: var(--paper-bg);
-  color: #2a2a2a;
-  border: 1px solid var(--paper-border);
-  border-radius: 12px;
-  padding: 1.25rem 1.25rem;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
+/* “auto card” look: everything between headings reads like grouped blocks */
+.policy-wrap h2,
+.policy-wrap h2 + p,
+.policy-wrap h2 + p + ul,
+.policy-wrap h2 + ul {
+  background: var(--panel-dark);
+  border: 1px solid var(--border);
 }
 
-.policy-card h2 {
-  margin: 0 0 0.6rem;
-  color: #1c1816;
-  font-size: 1.2rem;
+.policy-wrap h2 {
+  border-bottom: none;
+  border-radius: 12px 12px 0 0;
+  padding: 1.0rem 1.1rem 0.2rem;
 }
 
-.policy-card p {
-  margin: 0.7rem 0;
-  line-height: 1.65;
+.policy-wrap h2 + p,
+.policy-wrap h2 + ul,
+.policy-wrap h2 + p + ul {
+  border-top: none;
+  padding: 0.6rem 1.1rem 1.0rem;
+  margin: 0;
 }
 
-.policy-card ul {
-  margin: 0.6rem 0 0;
+.policy-wrap h2 + p:last-child,
+.policy-wrap h2 + ul:last-child,
+.policy-wrap h2 + p + ul:last-child {
+  border-radius: 0 0 12px 12px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
+  margin-bottom: 1rem;
+}
+
+/* list spacing */
+.policy-wrap ul {
   padding-left: 1.2rem;
 }
 
-.policy-card a {
-  color: #0b6b74;
+.policy-wrap li {
+  margin: 0.35rem 0;
+  color: var(--text-light);
+}
+
+/* paragraph text */
+.policy-wrap p {
+  color: var(--text-light);
+  line-height: 1.65;
+}
+
+/* links */
+.policy-wrap a {
+  color: var(--accent-cyan);
   text-decoration: underline;
   text-decoration-thickness: 2px;
   text-underline-offset: 2px;
 }
 
-.policy-card a:hover {
-  color: #094f56;
+.policy-wrap a:hover {
+  color: #5eeaff;
 }
 
 @media (max-width: 560px) {
@@ -393,4 +419,5 @@ main {
     width: fit-content;
   }
 }
+
 
