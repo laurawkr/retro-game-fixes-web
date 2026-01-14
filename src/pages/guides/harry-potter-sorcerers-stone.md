@@ -1,24 +1,21 @@
 ---
 layout: ../../layouts/BaseLayout.astro
-title: How to Run Harry Potter and the Sorcerer’s Stone (PC CD-ROM, US) on Modern Windows
-description: Step-by-step guide for running Harry Potter and the Sorcerer’s Stone (PC CD-ROM, US) on Windows XP, 7, 10, and 11 using dgVoodoo2 and compatibility fixes.
+title: Harry Potter and the Sorcerer’s Stone (PC CD-ROM, US)
+description: Step-by-step guide for running Harry Potter and the Sorcerer’s Stone (PC CD-ROM, US) on Windows XP, 7, 10, and 11
 ---
 
 # How to Run *Harry Potter and the Sorcerer’s Stone* (PC CD-ROM, US) on Modern Windows
 
-This guide helps you get *Harry Potter and the Sorcerer’s Stone* (original PC CD-ROM, US version) running on **Windows XP, Windows 7, Windows 10, and Windows 11**.
-
-> ❗ This guide assumes you **own the original disc**. For damaged discs, you can use official archival tools like Internet Archive to read your media. We don’t link to pirated downloads.
+Follow this guide to get *Harry Potter and the Sorcerer’s Stone* (original PC CD-ROM, US version) running on **Windows XP, Windows 7, Windows 10, and Windows 11**
 
 ---
 
 ## Supported Systems
 
-- Windows XP – needs testing and optional fixes.
-- Windows 7 – installs and runs, but crashes without dgVoodoo2.
-- Windows 10 – crashes or fails to launch without fixes.
-- Windows 11 – crashes or fails to launch without fixes.
-
+- Windows 95 - intalls and runs without issues.
+- Windows 7 - installs and runs fine in most cases, running in compatability mode solves rare issues
+- Windows 10 - installs but will crash without dgVoodoo2.
+- Windows 11 - installs but will crash without dgVoodoo2.
 If you’re on **Windows 10 or 11**, don’t even bother trying to run the game without dgVoodoo2—it will be unstable and usually crash quickly.
 
 ---
@@ -31,9 +28,11 @@ The PC version of HP1 was built for early DirectX and uses legacy **SafeDisc** c
 - SafeDisc DRM is blocked by Windows security.
 - Optical drives run at different speeds than when the game was released.
 
-Result: installs may work, but the game will often **crash on launch, freeze, or close after a few seconds**.
+Result: installs may work, but the game will often **crash on launch, give a safedisc warning, or close after a few seconds**.
 
-Our fix is to use **dgVoodoo2**, a graphics wrapper that translates old DirectX calls into something modern Windows understands.
+My favorite fix is to download a new executable that allows the game to run without needing to read from the disc, and to use **dgVoodoo2**, a graphics wrapper that translates old DirectX calls into something modern Windows understands.
+
+In my case, using these are the only two fixes needed to get you up and running without any issues. 
 
 ---
 
@@ -41,9 +40,6 @@ Our fix is to use **dgVoodoo2**, a graphics wrapper that translates old DirectX 
 
 1. Insert your original **Harry Potter and the Sorcerer’s Stone** PC CD-ROM.
 2. Run the installer and let it complete.
-3. If your disc is damaged, you can:
-   - Create an ISO from your own disc, or
-   - Use Internet Archive as a reading solution for your legally owned copy.
 4. Once installed, **do not launch the game yet** on Windows 10/11—go straight to dgVoodoo2.
 
 ---
@@ -77,7 +73,12 @@ Click **OK** to save and close dgVoodoo2.
 
 ---
 
-## Step 4 – Windows 7 Notes
+## Step 4 - Replace HP executable
+   1. Find community sources HP executable
+   2. Open your HP1 game folder and replace the executable with the new one
+      
+
+##Windows 7 Notes
 
 On **Windows 7**:
 
@@ -91,7 +92,7 @@ With dgVoodoo2 configured:
 
 ---
 
-## Step 5 – Windows 10 & Windows 11 Notes
+## Windows 10 & Windows 11 Notes
 
 On **Windows 10/11**, you will typically see:
 
@@ -109,7 +110,7 @@ Because modern Windows does not support SafeDisc at the system level, running di
 
 ---
 
-## Step 6 – Resolution and Fullscreen
+## Resolution and Fullscreen
 
 If the game looks wrong:
 
@@ -121,7 +122,7 @@ The goal is to target either the original 4:3 look or a comfortable widescreen m
 
 ---
 
-## Step 7 – Audio
+## Audio
 
 After dgVoodoo2 is installed:
 
