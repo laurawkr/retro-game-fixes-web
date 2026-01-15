@@ -76,10 +76,9 @@ Click **OK** to save and close dgVoodoo2.
 
 ---
 
-## Step 4 - Replace HP executable
+## Step 4 - Address Safedisc issues
 
-1. Find community sources HP executable
-2. Open your HP1 game folder and replace the executable with the new one
+1. If you are encountering safedisc issues please navigate to the safedisc fixes page for available solutions.
 
 ---
 
