@@ -1,9 +1,10 @@
 ---
 layout: ../../layouts/BaseLayout.astro
-[← Home](/)
 title: Harry Potter and the Sorcerer’s Stone (PC CD-ROM, US)
 description: Step-by-step guide for running Harry Potter and the Sorcerer’s Stone (PC CD-ROM, US) on Windows XP, 7, 10, and 11
 ---
+
+<a href="/" class="home-btn">← Home</a>
 
 # How to Run *Harry Potter and the Sorcerer’s Stone* (PC CD-ROM, US) on Modern Windows
 
@@ -17,6 +18,7 @@ Follow this guide to get *Harry Potter and the Sorcerer’s Stone* (original PC 
 - Windows 7 - installs and runs fine in most cases, running in compatability mode solves rare issues
 - Windows 10 - installs but will crash without dgVoodoo2.
 - Windows 11 - installs but will crash without dgVoodoo2.
+
 If you’re on **Windows 10 or 11**, don’t even bother trying to run the game without dgVoodoo2—it will be unstable and usually crash quickly.
 
 ---
@@ -33,7 +35,7 @@ Result: installs may work, but the game will often **crash on launch, give a saf
 
 My favorite fix is to download a new executable that allows the game to run without needing to read from the disc, and to use **dgVoodoo2**, a graphics wrapper that translates old DirectX calls into something modern Windows understands.
 
-In my case, using these are the only two fixes needed to get you up and running without any issues. 
+In my case, using these are the only two fixes needed to get you up and running without any issues.
 
 ---
 
@@ -75,11 +77,13 @@ Click **OK** to save and close dgVoodoo2.
 ---
 
 ## Step 4 - Replace HP executable
-   1. Find community sources HP executable
-   2. Open your HP1 game folder and replace the executable with the new one
-      
 
-##Windows 7 Notes
+1. Find community sources HP executable
+2. Open your HP1 game folder and replace the executable with the new one
+
+---
+
+## Windows 7 Notes
 
 On **Windows 7**:
 
@@ -147,5 +151,3 @@ A: This guide is focused on **native Windows**. VMs (like XP in VirtualBox) are 
 A: You should own the original game. This guide only uses official tools and archival solutions, not pirated copies.
 
 ---
-
-If this guide helped you get HP1 running again, consider bookmarking this site—more retro PC game fixes are on the way.
