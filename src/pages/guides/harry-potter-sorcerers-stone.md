@@ -1,5 +1,6 @@
 ---
 layout: ../../layouts/BaseLayout.astro
+[← Home](/)
 title: Harry Potter and the Sorcerer’s Stone (PC CD-ROM, US)
 description: Step-by-step guide for running Harry Potter and the Sorcerer’s Stone (PC CD-ROM, US) on Windows XP, 7, 10, and 11
 ---
