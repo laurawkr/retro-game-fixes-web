@@ -6,8 +6,6 @@ pageTitle: Harry Potter and the Sorcerer’s Stone (PC)
 pageTagline: Modern fixes for classic PC games
 activePath: /guides/harry-potter-sorcerers-stone
 ---
-<a href="/" class="home-btn">← Home</a>
-
 # How to Run *Harry Potter and the Sorcerer’s Stone* (PC CD-ROM, US) on Modern Windows
 
 Follow this guide to get *Harry Potter and the Sorcerer’s Stone* (original PC CD-ROM, US version) running on **Windows XP, Windows 7, Windows 10, and Windows 11**
