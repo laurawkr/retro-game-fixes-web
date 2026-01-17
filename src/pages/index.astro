@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import ebayData from "../data/ebay.json";
 
 const title = "Retro Game Fixes";
 const description = "Modern fixes for classic PC games";
@@ -12,27 +13,10 @@ const guides = [
   },
 ];
 
-// ✅ Replace these with your real eBay items (first 3 shown on homepage)
-const ebayListings = [
-  {
-    title: "Example Listing #1 (replace me)",
-    price: "$29.99",
-    href: "https://www.ebay.com/",
-    img: "/images/placeholder-game.jpg", // optional
-  },
-  {
-    title: "Example Listing #2 (replace me)",
-    price: "$19.99",
-    href: "https://www.ebay.com/",
-    img: "/images/placeholder-game.jpg", // optional
-  },
-  {
-    title: "Example Listing #3 (replace me)",
-    price: "$49.99",
-    href: "https://www.ebay.com/",
-    img: "/images/placeholder-game.jpg", // optional
-  },
-];
+// ✅ Pulled from fetch-ebay.mjs output
+const ebayListings = ebayData?.items ?? [];
+const seller = ebayData?.seller ?? "";
+// const fetchedAt = ebayData?.fetchedAt ?? ""; // optional if your script writes it
 
 const introText = `Thanks to Microsoft’s “innovations”, most of my favorite childhood PC games are not easy to run on modern Windows.
 While it’s nice to have a classic machine laying around running XP, it’s also a lot of fun to have these games accessible on your daily computer.
@@ -72,12 +56,12 @@ your own discernment.`;
         <h3 class="lr-panel-title">Guides</h3>
         <ul class="lr-nav lr-subnav">
           {guides.map((g) => (
-            <li><a href={g.href}>{g.title.includes("(PC)") ? g.title : `${g.title}`}</a></li>
+            <li><a href={g.href}>{g.title}</a></li>
           ))}
         </ul>
       </section>
 
-      <!-- ✅ NEW: Games For Sale -->
+      <!-- ✅ Games For Sale -->
       <section class="lr-panel">
         <h3 class="lr-panel-title">Games For Sale</h3>
         <ul class="lr-nav lr-subnav">
@@ -101,7 +85,7 @@ your own discernment.`;
         </header>
 
         <div class="lr-post-content">
-          <!-- ✅ NEW ORDER: Intro first -->
+          <!-- Intro -->
           <h3>About this site</h3>
           <p>{introText}</p>
 
@@ -109,7 +93,7 @@ your own discernment.`;
             <a class="lr-btn" href="/about">Read more →</a>
           </p>
 
-          <!-- ✅ Guides section (no “working on” / “planned”) -->
+          <!-- Guides -->
           <h3>Guides</h3>
           <ul>
             {guides.map((g) => (
@@ -117,28 +101,44 @@ your own discernment.`;
             ))}
           </ul>
 
-          <!-- ✅ New: Listings preview -->
+          <!-- ✅ Listings preview -->
           <h3>Games For Sale</h3>
 
-          <div class="lr-sale-grid">
-            {ebayListings.slice(0, 3).map((item) => (
-              <a class="lr-sale-card" href={item.href} target="_blank" rel="noopener noreferrer">
-                {item.img ? (
-                  <img class="lr-sale-img" src={item.img} alt={item.title} loading="lazy" />
-                ) : (
-                  <div class="lr-sale-img lr-sale-img--placeholder" aria-hidden="true"></div>
-                )}
+          {ebayListings.length === 0 ? (
+            <p><em>No listings found yet.</em></p>
+          ) : (
+            <div class="lr-sale-grid">
+              {ebayListings.slice(0, 3).map((item) => (
+                <a class="lr-sale-card" href={item.href} target="_blank" rel="noopener noreferrer">
+                  {item.img ? (
+                    <img class="lr-sale-img" src={item.img} alt={item.title} loading="lazy" />
+                  ) : (
+                    <div class="lr-sale-img lr-sale-img--placeholder" aria-hidden="true"></div>
+                  )}
 
-                <div class="lr-sale-meta">
-                  <div class="lr-sale-title">{item.title}</div>
-                  {item.price && <div class="lr-sale-price">{item.price}</div>}
-                </div>
-              </a>
-            ))}
-          </div>
+                  <div class="lr-sale-meta">
+                    <div class="lr-sale-title">{item.title}</div>
+                    {item.price && <div class="lr-sale-price">{item.price}</div>}
+                  </div>
+                </a>
+              ))}
+            </div>
+          )}
 
           <p class="lr-cta">
             <a class="lr-btn" href="/games-for-sale">See more →</a>
+
+            {seller && (
+              <a
+                class="lr-btn"
+                style="margin-left: 0.5rem;"
+                href={`https://www.ebay.com/sch/i.html?_ssn=${encodeURIComponent(seller)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View all on eBay →
+              </a>
+            )}
           </p>
         </div>
       </article>
