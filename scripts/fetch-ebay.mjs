@@ -1,27 +1,33 @@
+// scripts/fetch-ebay.mjs
 #!/usr/bin/env node
 /**
  * Fetch public eBay listings for a seller using the Browse API (static-site friendly).
  *
  * Env vars:
- *   EBAY_CLIENT_ID        (App ID / Client ID)
+ *   EBAY_CLIENT_ID        (App ID / Client ID)  [you can also keep using EBAY_APP_ID]
  *   EBAY_CLIENT_SECRET    (Cert ID / Client Secret)
  *   EBAY_SELLER           (seller username, e.g. lawhi-46)
  *   EBAY_MARKETPLACE_ID   (optional, default EBAY_US)
  *   EBAY_LIMIT            (optional, default 50)
+ *   EBAY_QUERY            (optional, default "video game")
  *
  * Output:
- *   src/data/ebay.json
+ *   src/data/ebay.json  -> { seller, marketplace, fetchedAt, query, items:[{title,href,img,price}] }
  */
 
 import fs from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
 
-const EBAY_CLIENT_ID = process.env.EBAY_CLIENT_ID || process.env.EBAY_APP_ID; // allow your old name
+const EBAY_CLIENT_ID = process.env.EBAY_CLIENT_ID || process.env.EBAY_APP_ID;
 const EBAY_CLIENT_SECRET = process.env.EBAY_CLIENT_SECRET;
 const EBAY_SELLER = process.env.EBAY_SELLER;
+
 const EBAY_MARKETPLACE_ID = process.env.EBAY_MARKETPLACE_ID || "EBAY_US";
 const EBAY_LIMIT = Number(process.env.EBAY_LIMIT || 50);
+
+// Browse search requires q/category_ids/etc. Use a broad default query:
+const EBAY_QUERY = (process.env.EBAY_QUERY || "video game").trim();
 
 if (!EBAY_CLIENT_ID) throw new Error("Missing EBAY_CLIENT_ID (or EBAY_APP_ID).");
 if (!EBAY_CLIENT_SECRET) throw new Error("Missing EBAY_CLIENT_SECRET (Cert ID / Client Secret).");
@@ -32,8 +38,6 @@ function b64(str) {
 }
 
 async function getAppAccessToken() {
-  // Client Credentials flow (application token)
-  // Docs: https://developer.ebay.com/api-docs/static/oauth-client-credentials-grant.html
   const tokenUrl = "https://api.ebay.com/identity/v1/oauth2/token";
 
   const body = new URLSearchParams({
@@ -56,52 +60,31 @@ async function getAppAccessToken() {
   }
 
   const json = JSON.parse(text);
-  if (!json.access_token) throw new Error(`Token response missing access_token: ${text}`);
+  if (!json.access_token) {
+    throw new Error(`Token response missing access_token: ${text}`);
+  }
+
   return json.access_token;
 }
 
 async function fetchSellerListings(accessToken) {
-    const endpoint = new URL("https://api.ebay.com/buy/browse/v1/item_summary/search");
-  
-    // REQUIRED by Browse API: must include q (or category_ids, etc.)
-    // Use a broad term so we still effectively get “all seller items”.
-    endpoint.searchParams.set("q", "game");
-  
-    // Your seller filter
-    endpoint.searchParams.set("filter", `sellers:{${EBAY_SELLER}}`);
-  
-    // optional
-    endpoint.searchParams.set("limit", String(EBAY_LIMIT));
-  
-    const res = await fetch(endpoint.toString(), {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        "X-EBAY-C-MARKETPLACE-ID": EBAY_MARKETPLACE_ID,
-      },
-    });
-  
-    const text = await res.text();
-    if (!res.ok) {
-      throw new Error(`Browse search failed (${res.status}): ${text}`);
-    }
-  
-    const json = JSON.parse(text);
-    const items = (json.itemSummaries || []).map((it) => {
-      const priceVal = it?.price?.value;
-      const priceCur = it?.price?.currency;
-      const price =
-        priceVal && priceCur ? `${priceVal} ${priceCur}` : priceVal ? String(priceVal) : "";
-  
-      return {
-        title: it.title || "",
-        href: it.itemWebUrl || "",
-        img: it?.image?.imageUrl || "",
-        price,
-      };
-    });
-  
-    return items;
-  }
+  const endpoint = new URL("https://api.ebay.com/buy/browse/v1/item_summary/search");
+
+  // REQUIRED param by Browse API:
+  endpoint.searchParams.set("q", EBAY_QUERY);
+
+  // Seller filter:
+  endpoint.searchParams.set("filter", `sellers:{${EBAY_SELLER}}`);
+
+  // Optional:
+  endpoint.searchParams.set("limit", String(EBAY_LIMIT));
+
+  const res = await fetch(endpoint.toString(), {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "X-EBAY-C-MARKETPLACE-ID": EBAY_MARKETPLACE_ID,
+    },
+  });
 
   const text = await res.text();
   if (!res.ok) {
@@ -109,14 +92,16 @@ async function fetchSellerListings(accessToken) {
   }
 
   const json = JSON.parse(text);
+
   const items = (json.itemSummaries || []).map((it) => {
     const priceVal = it?.price?.value;
     const priceCur = it?.price?.currency;
-    const price = priceVal && priceCur ? `${priceVal} ${priceCur}` : (priceVal ? String(priceVal) : "");
+    const price =
+      priceVal && priceCur ? `${priceVal} ${priceCur}` : priceVal ? String(priceVal) : "";
 
     return {
-      title: it.title || "",
-      href: it.itemWebUrl || "",
+      title: it?.title || "",
+      href: it?.itemWebUrl || "",
       img: it?.image?.imageUrl || "",
       price,
     };
@@ -133,6 +118,7 @@ async function main() {
     seller: EBAY_SELLER,
     marketplace: EBAY_MARKETPLACE_ID,
     fetchedAt: new Date().toISOString(),
+    query: EBAY_QUERY,
     items,
   };
 
@@ -147,3 +133,4 @@ main().catch((err) => {
   console.error(err);
   process.exit(1);
 });
+
