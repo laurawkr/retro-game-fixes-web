@@ -1,32 +1,12 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import ebayData from "../data/ebay.json";
 
 const title = "Games For Sale";
 const description = "Retro games I currently have listed for sale.";
 
-// ✅ Replace with your real items (or later: load from a JSON file)
-const ebayListings = [
-  {
-    title: "Example Listing #1 (replace me)",
-    price: "$29.99",
-    href: "https://www.ebay.com/",
-    img: "/images/placeholder-game.jpg",
-  },
-  {
-    title: "Example Listing #2 (replace me)",
-    price: "$19.99",
-    href: "https://www.ebay.com/",
-    img: "/images/placeholder-game.jpg",
-  },
-  {
-    title: "Example Listing #3 (replace me)",
-    price: "$49.99",
-    href: "https://www.ebay.com/",
-    img: "/images/placeholder-game.jpg",
-  },
-];
+const ebayListings = ebayData?.items ?? [];
 ---
-
 <BaseLayout {title} {description}>
   <header class="lr-header">
     <div class="lr-header-bg" aria-hidden="true"></div>
