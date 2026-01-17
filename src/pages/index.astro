@@ -2,21 +2,56 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const title = "Retro Game Fixes";
-const description =
-  "Modern fixes for classic PC games";
+const description = "Modern fixes for classic PC games";
+
+// ✅ Edit these as you add more guides
+const guides = [
+  {
+    title: "Harry Potter and the Sorcerer’s Stone (PC)",
+    href: "/guides/harry-potter-sorcerers-stone",
+  },
+];
+
+// ✅ Replace these with your real eBay items (first 3 shown on homepage)
+const ebayListings = [
+  {
+    title: "Example Listing #1 (replace me)",
+    price: "$29.99",
+    href: "https://www.ebay.com/",
+    img: "/images/placeholder-game.jpg", // optional
+  },
+  {
+    title: "Example Listing #2 (replace me)",
+    price: "$19.99",
+    href: "https://www.ebay.com/",
+    img: "/images/placeholder-game.jpg", // optional
+  },
+  {
+    title: "Example Listing #3 (replace me)",
+    price: "$49.99",
+    href: "https://www.ebay.com/",
+    img: "/images/placeholder-game.jpg", // optional
+  },
+];
+
+const introText = `Thanks to Microsoft’s “innovations”, most of my favorite childhood PC games are not easy to run on modern Windows.
+While it’s nice to have a classic machine laying around running XP, it’s also a lot of fun to have these games accessible on your daily computer.
+I have spent a lot of time and effort through the years finding fixes for each new iteration of windows they release. It’s usually DirectX
+problems or SafeDisc issues. This site is partly for my future reference, but I also wanted to share this info with any other fans of these
+games, looking for solutions. All the fixes I recommend here are well documented in bits an pieces elsewhere, but its a pain sifting through
+all the outdated advice so my goal is to provide a more comprehensive guide tailored to each os version. For any downloads I recommend always
+doing your own research first and going to trusted sites. I may point out sites I trust, such as Archive.org, but it’s still up to you to use
+your own discernment.`;
 ---
 
 <BaseLayout {title} {description}>
   <!-- Top header banner (LevelRankings-ish) -->
   <header class="lr-header">
-    <!-- Optional: drop an image at /public/images/header.jpg -->
     <div class="lr-header-bg" aria-hidden="true"></div>
 
     <div class="lr-header-inner">
       <h1 class="lr-site-title">Retro Game Fixes</h1>
-      <p class="lr-site-tagline">
-        Modern fixes for classic PC games
-      </p>
+      <p class="lr-site-tagline">Modern fixes for classic PC games</p>
     </div>
   </header>
 
@@ -35,11 +70,18 @@ const description =
 
       <section class="lr-panel">
         <h3 class="lr-panel-title">Guides</h3>
-        <ul class="lr-nav">
-          <ul class="lr-nav lr-subnav">
-            <li><a href="/guides/harry-potter-sorcerers-stone">Harry Potter (PC)</a></li>
-            <!-- Add more guides here -->
-          </ul>
+        <ul class="lr-nav lr-subnav">
+          {guides.map((g) => (
+            <li><a href={g.href}>{g.title.includes("(PC)") ? g.title : `${g.title}`}</a></li>
+          ))}
+        </ul>
+      </section>
+
+      <!-- ✅ NEW: Games For Sale -->
+      <section class="lr-panel">
+        <h3 class="lr-panel-title">Games For Sale</h3>
+        <ul class="lr-nav lr-subnav">
+          <li><a href="/games-for-sale">All listings</a></li>
         </ul>
       </section>
     </aside>
@@ -59,40 +101,44 @@ const description =
         </header>
 
         <div class="lr-post-content">
-        
-          <h3>Currently working on</h3>
-          <ul>
-            <li>
-              <a href="/guides/harry-potter-sorcerers-stone">
-                Harry Potter and the Sorcerer’s Stone (PC)
-              </a>
-            </li>
-          </ul>
-
-          <h3>Planned</h3>
-          <ul>
-            <li>Harry Potter PC series</li>
-            <li>The Sims</li>
-            <li>Sim Theme Park</li>
-            <li>Sim Golf</li>
-            <li>Sim Safari</li>
-            <li>SimIsle</li>
-          </ul>
-
+          <!-- ✅ NEW ORDER: Intro first -->
           <h3>About this site</h3>
-          <p>
-            Thanks to Microsoft’s “innovations”, most of my favorite childhood PC games are not easy to run on modern Windows. 
-            While it’s nice to have a classic machine laying around running XP, it’s also a lot of fun to have these games accessible on your daily computer. 
-            I have spent a lot of time and effort through the years finding fixes for each new iteration of windows they release. It’s usually DirectX
-            problems or SafeDisc issues. This site is partly for my future reference, but I also wanted to share this info with any other fans of these 
-            games, looking for solutions. All the fixes I recommend here are well documented in bits an pieces elsewhere, but its a pain sifting through 
-            all the outdated advice so my goal is to provide a more comprehensive guide tailored to each os version. For any downloads I recommend always 
-            doing your own research first and  going to trusted sites. I may point out sites I trust, such as Archive.org, but it’s still up to you to use 
-            your own discernment.
-          </p>
+          <p>{introText}</p>
 
           <p class="lr-cta">
             <a class="lr-btn" href="/about">Read more →</a>
+          </p>
+
+          <!-- ✅ Guides section (no “working on” / “planned”) -->
+          <h3>Guides</h3>
+          <ul>
+            {guides.map((g) => (
+              <li><a href={g.href}>{g.title}</a></li>
+            ))}
+          </ul>
+
+          <!-- ✅ New: Listings preview -->
+          <h3>Games For Sale</h3>
+
+          <div class="lr-sale-grid">
+            {ebayListings.slice(0, 3).map((item) => (
+              <a class="lr-sale-card" href={item.href} target="_blank" rel="noopener noreferrer">
+                {item.img ? (
+                  <img class="lr-sale-img" src={item.img} alt={item.title} loading="lazy" />
+                ) : (
+                  <div class="lr-sale-img lr-sale-img--placeholder" aria-hidden="true"></div>
+                )}
+
+                <div class="lr-sale-meta">
+                  <div class="lr-sale-title">{item.title}</div>
+                  {item.price && <div class="lr-sale-price">{item.price}</div>}
+                </div>
+              </a>
+            ))}
+          </div>
+
+          <p class="lr-cta">
+            <a class="lr-btn" href="/games-for-sale">See more →</a>
           </p>
         </div>
       </article>
@@ -104,6 +150,6 @@ const description =
         </div>
       </footer>
     </main>
-
   </div>
 </BaseLayout>
+
