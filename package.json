@@ -10,5 +10,10 @@
   },
   "dependencies": {
     "astro": "^5.16.6"
+  },
+  {
+    "scripts": {
+      "build": "node scripts/fetch-ebay.mjs && astro build"
+    }
   }
 }
