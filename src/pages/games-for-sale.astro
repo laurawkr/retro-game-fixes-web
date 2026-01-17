@@ -7,6 +7,7 @@ const description = "Retro games I currently have listed for sale.";
 
 const ebayListings = ebayData?.items ?? [];
 ---
+
 <BaseLayout {title} {description}>
   <header class="lr-header">
     <div class="lr-header-bg" aria-hidden="true"></div>
@@ -27,6 +28,7 @@ const ebayListings = ebayData?.items ?? [];
           <li><a href="/privacy-policy">Privacy Policy</a></li>
         </ul>
       </section>
+
       <section class="lr-panel">
         <h3 class="lr-panel-title">Guides</h3>
         <ul class="lr-nav lr-subnav">
@@ -34,6 +36,7 @@ const ebayListings = ebayData?.items ?? [];
           <!-- add more guides here -->
         </ul>
       </section>
+
       <section class="lr-panel">
         <h3 class="lr-panel-title">Games For Sale</h3>
         <ul class="lr-nav lr-subnav">
@@ -49,30 +52,51 @@ const ebayListings = ebayData?.items ?? [];
         </header>
 
         <div class="lr-post-content">
-          <p>
-            These are my current listings. If something sells, I’ll pull it from here.
-          </p>
+          <p>These are my current listings. If something sells, I’ll pull it from here.</p>
 
-          <div class="lr-sale-grid lr-sale-grid--full">
-            {ebayListings.map((item) => (
-              <a class="lr-sale-card" href={item.href} target="_blank" rel="noopener noreferrer">
-                {item.img ? (
-                  <img class="lr-sale-img" src={item.img} alt={item.title} loading="lazy" />
-                ) : (
-                  <div class="lr-sale-img lr-sale-img--placeholder" aria-hidden="true"></div>
-                )}
+          {ebayListings.length === 0 ? (
+            <p><em>No listings found right now.</em></p>
+          ) : (
+            <div class="lr-sale-grid lr-sale-grid--full">
+              {ebayListings.map((item) => (
+                <a
+                  class="lr-sale-card"
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {item.img ? (
+                    <img
+                      class="lr-sale-img"
+                      src={item.img}
+                      alt={item.title}
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div
+                      class="lr-sale-img lr-sale-img--placeholder"
+                      aria-hidden="true"
+                    ></div>
+                  )}
 
-                <div class="lr-sale-meta">
-                  <div class="lr-sale-title">{item.title}</div>
-                  {item.price && <div class="lr-sale-price">{item.price}</div>}
-                </div>
-              </a>
-            ))}
-          </div>
+                  <div class="lr-sale-meta">
+                    <div class="lr-sale-title">{item.title}</div>
+                    {item.price ? (
+                      <div class="lr-sale-price">{item.price}</div>
+                    ) : null}
+                  </div>
+                </a>
+              ))}
+            </div>
+          )}
 
-          <!-- OPTIONAL: if you have an eBay store page, drop a link here -->
           <p class="lr-cta">
-            <a class="lr-btn" href="https://www.ebay.com/" target="_blank" rel="noopener noreferrer">
+            <a
+              class="lr-btn"
+              href="https://www.ebay.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               View on eBay →
             </a>
           </p>
@@ -80,7 +104,8 @@ const ebayListings = ebayData?.items ?? [];
       </article>
 
       <footer class="lr-footer">
-        <a href="/">Home</a> · <a href="/about">About</a> · <a href="/privacy-policy">Privacy Policy</a>
+        <a href="/">Home</a> · <a href="/about">About</a> ·{" "}
+        <a href="/privacy-policy">Privacy Policy</a>
         <div class="lr-copyright">
           &copy; {new Date().getFullYear()} caferacergames.com
         </div>
