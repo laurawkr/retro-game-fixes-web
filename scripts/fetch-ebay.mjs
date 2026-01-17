@@ -1,103 +1,118 @@
-import fs from "node:fs";
+#!/usr/bin/env node
+/**
+ * Fetch public eBay listings for a seller using the Browse API (static-site friendly).
+ *
+ * Env vars:
+ *   EBAY_CLIENT_ID        (App ID / Client ID)
+ *   EBAY_CLIENT_SECRET    (Cert ID / Client Secret)
+ *   EBAY_SELLER           (seller username, e.g. lawhi-46)
+ *   EBAY_MARKETPLACE_ID   (optional, default EBAY_US)
+ *   EBAY_LIMIT            (optional, default 50)
+ *
+ * Output:
+ *   src/data/ebay.json
+ */
+
+import fs from "node:fs/promises";
 import path from "node:path";
+import process from "node:process";
 
-const EBAY_APP_ID = process.env.EBAY_APP_ID;
+const EBAY_CLIENT_ID = process.env.EBAY_CLIENT_ID || process.env.EBAY_APP_ID; // allow your old name
+const EBAY_CLIENT_SECRET = process.env.EBAY_CLIENT_SECRET;
 const EBAY_SELLER = process.env.EBAY_SELLER;
+const EBAY_MARKETPLACE_ID = process.env.EBAY_MARKETPLACE_ID || "EBAY_US";
+const EBAY_LIMIT = Number(process.env.EBAY_LIMIT || 50);
 
-if (!EBAY_APP_ID || !EBAY_SELLER) {
-  console.error("Missing EBAY_APP_ID or EBAY_SELLER env vars.");
-  process.exit(1);
+if (!EBAY_CLIENT_ID) throw new Error("Missing EBAY_CLIENT_ID (or EBAY_APP_ID).");
+if (!EBAY_CLIENT_SECRET) throw new Error("Missing EBAY_CLIENT_SECRET (Cert ID / Client Secret).");
+if (!EBAY_SELLER) throw new Error("Missing EBAY_SELLER.");
+
+function b64(str) {
+  return Buffer.from(str, "utf8").toString("base64");
 }
 
-const OUT_PATH = path.join(process.cwd(), "src", "data", "ebay.json");
+async function getAppAccessToken() {
+  // Client Credentials flow (application token)
+  // Docs: https://developer.ebay.com/api-docs/static/oauth-client-credentials-grant.html
+  const tokenUrl = "https://api.ebay.com/identity/v1/oauth2/token";
 
-// Build a Finding API URL (findItemsAdvanced + Seller filter)
-const url = new URL("https://svcs.ebay.com/services/search/FindingService/v1");
-url.searchParams.set("OPERATION-NAME", "findItemsAdvanced");
-url.searchParams.set("SERVICE-VERSION", "1.13.0");
-url.searchParams.set("SECURITY-APPNAME", EBAY_APP_ID);
-url.searchParams.set("RESPONSE-DATA-FORMAT", "JSON");
-url.searchParams.set("REST-PAYLOAD", "");
+  const body = new URLSearchParams({
+    grant_type: "client_credentials",
+    scope: "https://api.ebay.com/oauth/api_scope",
+  });
 
-// Seller filter
-url.searchParams.set("itemFilter(0).name", "Seller");
-url.searchParams.set("itemFilter(0).value(0)", EBAY_SELLER);
+  const res = await fetch(tokenUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      Authorization: `Basic ${b64(`${EBAY_CLIENT_ID}:${EBAY_CLIENT_SECRET}`)}`,
+    },
+    body,
+  });
 
-// Only active listings (default is active, but keep it explicit-ish via outputSelector)
-url.searchParams.set("outputSelector(0)", "SellerInfo");
-url.searchParams.set("outputSelector(1)", "PictureURLLarge");
-url.searchParams.set("outputSelector(2)", "PictureURLSuperSize");
+  const text = await res.text();
+  if (!res.ok) {
+    throw new Error(`Token request failed (${res.status}): ${text}`);
+  }
 
-// Pagination
-url.searchParams.set("paginationInput.entriesPerPage", "50");
-url.searchParams.set("paginationInput.pageNumber", "1");
-
-async function fetchPage(pageNumber) {
-  const pageUrl = new URL(url.toString());
-  pageUrl.searchParams.set("paginationInput.pageNumber", String(pageNumber));
-
-  const res = await fetch(pageUrl.toString());
-  if (!res.ok) throw new Error(`eBay fetch failed: ${res.status} ${res.statusText}`);
-  return res.json();
+  const json = JSON.parse(text);
+  if (!json.access_token) throw new Error(`Token response missing access_token: ${text}`);
+  return json.access_token;
 }
 
-function normalize(apiJson) {
-  const root = apiJson?.findItemsAdvancedResponse?.[0];
-  const items = root?.searchResult?.[0]?.item ?? [];
+async function fetchSellerListings(accessToken) {
+  // Browse API item_summary search:
+  // https://developer.ebay.com/api-docs/buy/browse/resources/item_summary/methods/search
+  // Seller filter format examples show: filter=sellers:{seller_1|seller_2}
+  const endpoint = new URL("https://api.ebay.com/buy/browse/v1/item_summary/search");
+  endpoint.searchParams.set("filter", `sellers:{${EBAY_SELLER}}`);
+  endpoint.searchParams.set("limit", String(EBAY_LIMIT));
 
-  return items.map((it) => {
-    const title = it?.title?.[0] ?? "";
-    const viewItemURL = it?.viewItemURL?.[0] ?? "";
-    const priceObj = it?.sellingStatus?.[0]?.currentPrice?.[0];
-    const price = priceObj ? `${priceObj["@currencyId"] ?? ""} ${priceObj["__value__"] ?? ""}`.trim() : "";
+  const res = await fetch(endpoint.toString(), {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "X-EBAY-C-MARKETPLACE-ID": EBAY_MARKETPLACE_ID,
+    },
+  });
 
-    const img =
-      it?.pictureURLLarge?.[0] ??
-      it?.pictureURLSuperSize?.[0] ??
-      it?.galleryURL?.[0] ??
-      "";
+  const text = await res.text();
+  if (!res.ok) {
+    throw new Error(`Browse search failed (${res.status}): ${text}`);
+  }
+
+  const json = JSON.parse(text);
+  const items = (json.itemSummaries || []).map((it) => {
+    const priceVal = it?.price?.value;
+    const priceCur = it?.price?.currency;
+    const price = priceVal && priceCur ? `${priceVal} ${priceCur}` : (priceVal ? String(priceVal) : "");
 
     return {
-      title,
-      href: viewItemURL,
+      title: it.title || "",
+      href: it.itemWebUrl || "",
+      img: it?.image?.imageUrl || "",
       price,
-      img,
     };
   });
+
+  return items;
 }
 
 async function main() {
-  // Page 1 to learn total pages
-  const first = await fetchPage(1);
-  const root = first?.findItemsAdvancedResponse?.[0];
-  const totalPages = Number(root?.paginationOutput?.[0]?.totalPages?.[0] ?? 1);
+  const token = await getAppAccessToken();
+  const items = await fetchSellerListings(token);
 
-  const all = [...normalize(first)];
+  const out = {
+    seller: EBAY_SELLER,
+    marketplace: EBAY_MARKETPLACE_ID,
+    fetchedAt: new Date().toISOString(),
+    items,
+  };
 
-  for (let p = 2; p <= totalPages; p++) {
-    const data = await fetchPage(p);
-    all.push(...normalize(data));
-  }
+  const outPath = path.join(process.cwd(), "src", "data", "ebay.json");
+  await fs.mkdir(path.dirname(outPath), { recursive: true });
+  await fs.writeFile(outPath, JSON.stringify(out, null, 2), "utf8");
 
-  // Ensure directory exists
-  fs.mkdirSync(path.dirname(OUT_PATH), { recursive: true });
-
-  // Write JSON
-  fs.writeFileSync(
-    OUT_PATH,
-    JSON.stringify(
-      {
-        seller: EBAY_SELLER,
-        fetchedAt: new Date().toISOString(),
-        count: all.length,
-        items: all,
-      },
-      null,
-      2
-    )
-  );
-
-  console.log(`Wrote ${all.length} listings -> ${OUT_PATH}`);
+  console.log(`Wrote ${items.length} items -> ${outPath}`);
 }
 
 main().catch((err) => {
