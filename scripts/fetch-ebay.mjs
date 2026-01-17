@@ -61,19 +61,47 @@ async function getAppAccessToken() {
 }
 
 async function fetchSellerListings(accessToken) {
-  // Browse API item_summary search:
-  // https://developer.ebay.com/api-docs/buy/browse/resources/item_summary/methods/search
-  // Seller filter format examples show: filter=sellers:{seller_1|seller_2}
-  const endpoint = new URL("https://api.ebay.com/buy/browse/v1/item_summary/search");
-  endpoint.searchParams.set("filter", `sellers:{${EBAY_SELLER}}`);
-  endpoint.searchParams.set("limit", String(EBAY_LIMIT));
-
-  const res = await fetch(endpoint.toString(), {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-      "X-EBAY-C-MARKETPLACE-ID": EBAY_MARKETPLACE_ID,
-    },
-  });
+    const endpoint = new URL("https://api.ebay.com/buy/browse/v1/item_summary/search");
+  
+    // REQUIRED by Browse API: must include q (or category_ids, etc.)
+    // Use a broad term so we still effectively get “all seller items”.
+    endpoint.searchParams.set("q", "game");
+  
+    // Your seller filter
+    endpoint.searchParams.set("filter", `sellers:{${EBAY_SELLER}}`);
+  
+    // optional
+    endpoint.searchParams.set("limit", String(EBAY_LIMIT));
+  
+    const res = await fetch(endpoint.toString(), {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "X-EBAY-C-MARKETPLACE-ID": EBAY_MARKETPLACE_ID,
+      },
+    });
+  
+    const text = await res.text();
+    if (!res.ok) {
+      throw new Error(`Browse search failed (${res.status}): ${text}`);
+    }
+  
+    const json = JSON.parse(text);
+    const items = (json.itemSummaries || []).map((it) => {
+      const priceVal = it?.price?.value;
+      const priceCur = it?.price?.currency;
+      const price =
+        priceVal && priceCur ? `${priceVal} ${priceCur}` : priceVal ? String(priceVal) : "";
+  
+      return {
+        title: it.title || "",
+        href: it.itemWebUrl || "",
+        img: it?.image?.imageUrl || "",
+        price,
+      };
+    });
+  
+    return items;
+  }
 
   const text = await res.text();
   if (!res.ok) {
