@@ -6,11 +6,6 @@ pageTitle: Harry Potter and the Sorcerer’s Stone (PC)
 pageTagline: Modern fixes for classic PC games
 activePath: /guides/harry-potter-sorcerers-stone
 ---
-layout: ../../layouts/BaseLayout.astro
-title: Harry Potter and the Sorcerer’s Stone (PC CD-ROM, US)
-description: Step-by-step guide for running Harry Potter and the Sorcerer’s Stone (PC CD-ROM, US) on Windows XP, 7, 10, and 11
----
-
 <a href="/" class="home-btn">← Home</a>
 
 # How to Run *Harry Potter and the Sorcerer’s Stone* (PC CD-ROM, US) on Modern Windows
