@@ -7,22 +7,48 @@ const outRoot = path.join(siteRoot, "src", "data", "carousels");
 
 fs.mkdirSync(outRoot, { recursive: true });
 
+// only web-safe formats
 const isImage = (f) => /\.(png|jpe?g|webp|gif)$/i.test(f);
 
+const listImages = (dirPath) => {
+  if (!fs.existsSync(dirPath)) return [];
+  return fs
+    .readdirSync(dirPath, { withFileTypes: true })
+    .filter((d) => d.isFile())
+    .map((d) => d.name)
+    .filter((f) => isImage(f))
+    .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+};
+
 const folders = fs.existsSync(imagesRoot)
-  ? fs.readdirSync(imagesRoot, { withFileTypes: true }).filter((d) => d.isDirectory()).map((d) => d.name)
+  ? fs
+      .readdirSync(imagesRoot, { withFileTypes: true })
+      .filter((d) => d.isDirectory())
+      .map((d) => d.name)
   : [];
 
 for (const folder of folders) {
   const folderPath = path.join(imagesRoot, folder);
-  const files = fs
-    .readdirSync(folderPath)
-    .filter((f) => isImage(f))
-    .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+  const convertedPath = path.join(folderPath, "converted");
+
+  // Prefer /converted if it has images
+  const convertedFiles = listImages(convertedPath);
+  const rootFiles = listImages(folderPath);
+
+  const useConverted = convertedFiles.length > 0;
+  const chosenFiles = useConverted ? convertedFiles : rootFiles;
+
+  // Emit web paths (what the browser should request)
+  const baseWebPath = useConverted
+    ? `/images/${folder}/converted/`
+    : `/images/${folder}/`;
+
+  const images = chosenFiles.map((f) => `${baseWebPath}${f}`);
 
   const payload = {
     folder,
-    files,
+    useConverted,
+    images,
     updatedAt: new Date().toISOString(),
   };
 
@@ -30,3 +56,4 @@ for (const folder of folders) {
 }
 
 console.log(`Generated ${folders.length} carousel file(s) in src/data/carousels/`);
+
