@@ -6,6 +6,8 @@ pageTitle: Sid Meier's Sim Golf (PC)
 pageTagline: Modern fixes for classic PC games
 activePath: /guides/sid-meiers-sim-golf
 ---
+import AutoCarousel from "../../components/AutoCarousel.astro";
+
 # How to Run *Sid Meier's Sim Golf* (PC CD-ROM, US)
 
 Follow this guide to get *Sid Meier's Sim Golf* (original PC CD-ROM, US version) running on **Windows XP, Windows 7, Windows 10, and Windows 11**
@@ -22,6 +24,7 @@ Follow this guide to get *Sid Meier's Sim Golf* (original PC CD-ROM, US version)
 If you’re on **Windows 10 or 11**, don’t even bother trying to run the game without dgVoodoo2—it will be unstable and usually crash quickly.
 
 ---
+<AutoCarousel folder="harry-potter-sorcerers-stone" intervalMs={3500} height={480} />
 
 ## Why the Game Crashes on Modern Windows
 
