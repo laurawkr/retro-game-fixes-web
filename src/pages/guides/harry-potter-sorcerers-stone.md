@@ -33,7 +33,7 @@ The PC version of HP1 was built for early DirectX and uses legacy **SafeDisc** c
 
 Result: installs may work, but the game will often **crash on launch, give a safedisc warning, or close after a few seconds**.
 
-My favorite fix is to bybass the safeDisc issues, and to use **dgVoodoo2**, a graphics wrapper that translates old DirectX calls into something modern Windows understands.
+My favorite fix is to find a legal solution to the SafeDisc issue (e.g., an official re-release/digital version if available), and to use **dgVoodoo2**, a graphics wrapper that translates old DirectX calls into something modern Windows understands.
 
 In my case, using these are the only two fixes needed to get you up and running without any issues.
 
