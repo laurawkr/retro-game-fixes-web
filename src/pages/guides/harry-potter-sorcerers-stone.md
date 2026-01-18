@@ -110,8 +110,6 @@ Using dgVoodoo2:
 2. If you see any SafeDisc prompts, allow them to proceed.
 3. The game should now launch and stay stable, with dgVoodoo2 handling the old graphics calls.
 
-Because modern Windows does not support SafeDisc at the system level, running directly from the physical disc can be unreliable. Using dgVoodoo2 and an ISO of your own disc is often more stable.
-
 ---
 
 ## Resolution and Fullscreen
