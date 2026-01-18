@@ -15,16 +15,13 @@ const guides = [
 // ✅ Pulled from fetch-ebay.mjs output
 const ebayListings = ebayData?.items ?? [];
 const seller = ebayData?.seller ?? "";
-// const fetchedAt = ebayData?.fetchedAt ?? ""; // optional if your script writes it
 
+// ✅ AdSense-safe wording: no “trusted download sites”, no “Archive.org for downloads”
 const introText = `Thanks to Microsoft’s “innovations”, most of my favorite childhood PC games are not easy to run on modern Windows.
 While it’s nice to have a classic machine laying around running XP, it’s also a lot of fun to have these games accessible on your daily computer.
-I have spent a lot of time and effort through the years finding fixes for each new iteration of windows they release. It’s usually DirectX
-problems or SafeDisc issues. This site is partly for my future reference, but I also wanted to share this info with any other fans of these
-games, looking for solutions. All the fixes I recommend here are well documented in bits an pieces elsewhere, but its a pain sifting through
-all the outdated advice so my goal is to provide a more comprehensive guide tailored to each os version. For any downloads I recommend always
-doing your own research first and going to trusted sites. I may point out sites I trust, such as Archive.org, but it’s still up to you to use
-your own discernment.`;
+I’ve spent a lot of time over the years finding fixes for each new Windows version they release. It’s usually DirectX problems or SafeDisc issues.
+This site is partly for my future reference, but I also wanted to share this info with other fans looking for solutions.
+All the fixes I recommend are documented elsewhere, but it’s a pain sifting through outdated advice, so my goal is to provide a more comprehensive guide tailored to each OS version.`;
 ---
 
 <BaseLayout {title} {description}>
@@ -55,7 +52,7 @@ your own discernment.`;
         <h3 class="lr-panel-title">Guides</h3>
         <ul class="lr-nav lr-subnav">
           {guides.map((g) => (
-            <li><a href={g.href}>{g.title}</a></li>
+            <li><a href={g.href}>{g.label}</a></li>
           ))}
         </ul>
       </section>
@@ -96,7 +93,7 @@ your own discernment.`;
           <h3>Guides</h3>
           <ul>
             {guides.map((g) => (
-              <li><a href={g.href}>{g.title}</a></li>
+              <li><a href={g.href}>{g.label}</a></li>
             ))}
           </ul>
 
@@ -145,7 +142,7 @@ your own discernment.`;
       <footer class="lr-footer">
         <a href="/about">About</a> · <a href="/privacy-policy">Privacy Policy</a>
         <div class="lr-copyright">
-          &copy; {new Date().getFullYear()} retrogramefixes.com
+          &copy; {new Date().getFullYear()} retrogamefixes.com
         </div>
       </footer>
     </main>
