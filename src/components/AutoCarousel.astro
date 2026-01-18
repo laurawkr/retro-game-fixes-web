@@ -1,17 +1,25 @@
 ---
 const { folder, intervalMs = 3500, height = 260 } = Astro.props;
 
-let files = [];
+let images = [];
 if (folder) {
   try {
     const data = await import(`../data/carousels/${folder}.json`);
-    files = data.default?.files ?? [];
+    const json = data.default ?? {};
+
+    // New format (preferred): { images: ["/images/.../file.jpg", ...] }
+    if (Array.isArray(json.images)) {
+      images = json.images;
+    } else {
+      // Back-compat old format: { files: ["a.jpg", "b.jpg"] }
+      const files = json.files ?? [];
+      images = Array.isArray(files) ? files.map((f) => `/images/${folder}/${f}`) : [];
+    }
   } catch {
-    files = [];
+    images = [];
   }
 }
 
-const images = files.map((f) => `/images/${folder}/${f}`);
 const id = `carousel_${Math.random().toString(36).slice(2)}`;
 ---
 
