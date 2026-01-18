@@ -53,8 +53,34 @@ const id = `carousel_${Math.random().toString(36).slice(2)}`;
 </script>
 
 <style>
-  .rgf-carousel { width: 100%; height: var(--h); overflow: hidden; border-radius: 12px; margin: 0 0 1rem 0; }
-  .rgf-track { display: flex; height: 100%; transition: transform 500ms ease; }
-  .rgf-slide { min-width: 100%; height: 100%; }
-  .rgf-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .rgf-carousel {
+    width: 100%;
+    height: var(--h);
+    overflow: hidden;
+    border-radius: 12px;
+    margin: 0 0 1rem 0;
+    background: #000; /* keeps letterboxing clean */
+  }
+
+  .rgf-track {
+    display: flex;
+    height: 100%;
+    transition: transform 500ms ease;
+  }
+
+  .rgf-slide {
+    min-width: 100%;
+    height: 100%;
+    display: flex; /* centers the image within the slide */
+    align-items: center;
+    justify-content: center;
+  }
+
+  .rgf-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; 
+    object-position: center;
+    display: block;
+  }
 </style>
